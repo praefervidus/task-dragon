@@ -1,4 +1,4 @@
-import { editQuest, getQuest } from "../utils/ledger.ts";
+import { deleteQuest, editQuest, getQuest } from "../utils/ledger.ts";
 import {
   Quest,
   QuestImpact,
@@ -9,6 +9,7 @@ import {
 } from "../models/Quest.ts";
 import { Signal, useComputed } from "@preact/signals";
 import { useEffect, useState } from "preact/hooks";
+import { IoTrashOutline } from "@preact-icons/io5";
 
 interface QuestPaneProps {
   currentQuest: Signal<number>;
@@ -73,6 +74,10 @@ export function QuestPane(props: QuestPaneProps) {
   };
   const handleDiscard = () => {
     props.currentQuest.value = -1; // close quest panel
+  };
+  const handleTrash = () => {
+    deleteQuest(props.currentQuest.value);
+    props.currentQuest.value = -1;
   };
 
   return (quest !== undefined)
@@ -332,14 +337,27 @@ export function QuestPane(props: QuestPaneProps) {
             />
           </div>
         </div>
-        <div class="field has-addons">
-          <div class="control">
-            <button class="button is-primary" onClick={handleSave}>Save</button>
+        <div class="columns">
+          <div class="column field has-addons">
+            <div class="control">
+              <button class="button is-primary" onClick={handleSave}>
+                Save
+              </button>
+            </div>
+            <div class="control">
+              <button class="button is-warning" onClick={handleDiscard}>
+                Discard Changes
+              </button>
+            </div>
           </div>
-          <div class="control">
-            <button class="button is-danger" onClick={handleDiscard}>
-              Discard Changes
-            </button>
+          <div class="column field">
+            <div class="control level-right">
+              <button class="button is-danger" onClick={handleTrash}>
+                <span class="icon">
+                  <IoTrashOutline />
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </div>

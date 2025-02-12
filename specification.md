@@ -14,7 +14,7 @@ _**SIMPLICITY**_ and _**ACCESSIBILITY**_
 ## Requirements
 
 - [x] User must be able to add new quests to their ledger.
-- [ ] User should be able to remove quests from the ledger.
+- [x] User should be able to remove quests from the ledger.
 - [x] User should be able to add updates to a quest in the ledger.
 - [x] Closed quests should be distinguished between completed and failed.
 - [x] The ledger should group quests as: **ACTIVE**, **TO DO**, or **CLOSED**.
