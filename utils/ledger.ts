@@ -1,7 +1,7 @@
 import { signal } from "@preact/signals";
 import { Quest, QuestMeta, QuestStatus } from "../models/Quest.ts";
 
-const ledger = signal<Quest[]>([]);
+export const ledger = signal<Quest[]>([]);
 
 const getQuestIndex = (quests: Quest[], id: number): number => {
   return quests.findIndex((q: Quest) => (q.id() == id));
