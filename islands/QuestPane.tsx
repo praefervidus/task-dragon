@@ -9,7 +9,7 @@ import {
 } from "../models/Quest.ts";
 import { Signal, useComputed } from "@preact/signals";
 import { useEffect, useState } from "preact/hooks";
-import { IoTrashOutline } from "@preact-icons/io5";
+import { FaRegSave, FaRegShareSquare, FaRegTrashAlt } from "@preact-icons/fa";
 
 interface QuestPaneProps {
   currentQuest: Signal<number>;
@@ -338,23 +338,34 @@ export function QuestPane(props: QuestPaneProps) {
           </div>
         </div>
         <div class="columns">
-          <div class="column field has-addons">
-            <div class="control">
+          <div class="column field">
+            <div class="control level-left">
               <button class="button is-primary" onClick={handleSave}>
-                Save
+                <span class="icon-text">
+                  <span class="icon">
+                    <FaRegSave />
+                  </span>
+                  <span>Save</span>
+                </span>
               </button>
-            </div>
-            <div class="control">
               <button class="button is-warning" onClick={handleDiscard}>
-                Discard Changes
+                <span class="icon-text">
+                  <span class="icon">
+                    <FaRegShareSquare />
+                  </span>
+                  <span>Discard Changes</span>
+                </span>
               </button>
             </div>
           </div>
           <div class="column field">
             <div class="control level-right">
               <button class="button is-danger" onClick={handleTrash}>
-                <span class="icon">
-                  <IoTrashOutline />
+                <span class="icon-text">
+                  <span>Delete</span>
+                  <span class="icon">
+                    <FaRegTrashAlt />
+                  </span>
                 </span>
               </button>
             </div>
