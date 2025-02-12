@@ -7,6 +7,7 @@ import { SelectedTab } from "../components/QuestTypeTabs.tsx";
 import {
   enumeratePriority,
   QuestMeta,
+  QuestResolution,
   QuestStatus,
   QuestType,
 } from "../models/Quest.ts";
@@ -35,7 +36,7 @@ export default function LedgerPanel() {
   };
 
   const sortQuests = (quests: QuestMeta[]): QuestMeta[] => {
-    if (selectedTab == SelectedTab.All || selectedTab == SelectedTab.Closed) {
+    if (selectedTab == SelectedTab.All) {
       const ms = quests.filter((q) => q.type == QuestType.Main).sort((q, r) =>
         enumeratePriority(q.priority) - enumeratePriority(r.priority)
       );
@@ -49,6 +50,38 @@ export default function LedgerPanel() {
         enumeratePriority(q.priority) - enumeratePriority(r.priority)
       );
       return [...ms, ...ss, ...gs, ...ls];
+    } else if (selectedTab == SelectedTab.Closed) {
+      const fails = quests.filter((q) =>
+        q.resolution == QuestResolution.Failure
+      );
+      const passes = quests.filter((q) =>
+        q.resolution == QuestResolution.Resolved
+      );
+      const pm = passes.filter((q) => q.type == QuestType.Main).sort((q, r) =>
+        enumeratePriority(q.priority) - enumeratePriority(r.priority)
+      );
+      const ps = passes.filter((q) => q.type == QuestType.Side).sort((q, r) =>
+        enumeratePriority(q.priority) - enumeratePriority(r.priority)
+      );
+      const pg = passes.filter((q) => q.type == QuestType.Gig).sort((q, r) =>
+        enumeratePriority(q.priority) - enumeratePriority(r.priority)
+      );
+      const pl = passes.filter((q) => q.type == QuestType.Lead).sort((q, r) =>
+        enumeratePriority(q.priority) - enumeratePriority(r.priority)
+      );
+      const fm = fails.filter((q) => q.type == QuestType.Main).sort((q, r) =>
+        enumeratePriority(q.priority) - enumeratePriority(r.priority)
+      );
+      const fs = fails.filter((q) => q.type == QuestType.Side).sort((q, r) =>
+        enumeratePriority(q.priority) - enumeratePriority(r.priority)
+      );
+      const fg = fails.filter((q) => q.type == QuestType.Gig).sort((q, r) =>
+        enumeratePriority(q.priority) - enumeratePriority(r.priority)
+      );
+      const fl = fails.filter((q) => q.type == QuestType.Lead).sort((q, r) =>
+        enumeratePriority(q.priority) - enumeratePriority(r.priority)
+      );
+      return [...pm, ...ps, ...pg, ...pl, ...fm, ...fs, ...fg, ...fl];
     } else {
       return quests.sort((q, r) =>
         enumeratePriority(q.priority) - enumeratePriority(r.priority)

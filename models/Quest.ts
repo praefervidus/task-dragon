@@ -19,18 +19,24 @@ export enum QuestPriority {
   No = "None",
 }
 
+export enum QuestResolution {
+  Unresolved = "Unresolved",
+  Failure = "Failure",
+  Resolved = "Resolved",
+}
+
 export const enumeratePriority = (p: QuestPriority): number => {
   switch (p) {
     case QuestPriority.Critical:
-      return 0;
-    case QuestPriority.High:
       return 1;
-    case QuestPriority.Medium:
+    case QuestPriority.High:
       return 2;
-    case QuestPriority.Low:
+    case QuestPriority.Medium:
       return 3;
-    case QuestPriority.No:
+    case QuestPriority.Low:
       return 4;
+    case QuestPriority.No:
+      return 5;
   }
 };
 
@@ -54,6 +60,7 @@ export interface QuestMeta {
   type: QuestType;
   name: string;
   priority: QuestPriority;
+  resolution: QuestResolution;
 }
 
 export class Quest {
@@ -65,6 +72,7 @@ export class Quest {
   type: QuestType;
   priority: QuestPriority;
   impact: QuestImpact;
+  resolution: QuestResolution;
   description: string;
 
   constructor(id: number) {
@@ -77,6 +85,7 @@ export class Quest {
     this.type = QuestType.Lead;
     this.priority = QuestPriority.No;
     this.impact = QuestImpact.Internal;
+    this.resolution = QuestResolution.Unresolved;
   }
 
   id(): number {
@@ -89,6 +98,7 @@ export class Quest {
       type: this.type,
       name: this.name,
       priority: this.priority,
+      resolution: this.resolution,
     };
   }
 }

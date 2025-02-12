@@ -3,11 +3,12 @@ import {
   Quest,
   QuestImpact,
   QuestPriority,
+  QuestResolution,
   QuestStatus,
   QuestType,
 } from "../models/Quest.ts";
 import { Signal, useComputed } from "@preact/signals";
-import { useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 
 interface QuestPaneProps {
   currentQuest: Signal<number>;
@@ -27,11 +28,34 @@ export function QuestPane(props: QuestPaneProps) {
   const [impact, setImpact] = useState(
     quest.value?.impact ?? QuestImpact.Internal,
   );
+  const [resolution, setResolution] = useState(
+    quest.value?.resolution ?? QuestResolution.Unresolved,
+  );
   const [client, setClient] = useState(quest.value?.client ?? "");
   const [reward, setReward] = useState(quest.value?.reward ?? "");
   const [description, setDescription] = useState(
     quest.value?.description ?? "",
   );
+
+  useEffect(() => {
+    if (resolution != QuestResolution.Unresolved) {
+      setStatus(QuestStatus.Closed);
+    } else if (status == QuestStatus.Closed) {
+      // if resolution is unresolved, status shouldnt be closed
+      setStatus(QuestStatus.ToDo);
+    }
+  }, [resolution]);
+
+  useEffect(() => {
+    if (status == QuestStatus.Closed) {
+      if (resolution == QuestResolution.Unresolved) {
+        // resolution should not be unresolved if closed
+        setResolution(QuestResolution.Failure);
+      }
+    } else {
+      setResolution(QuestResolution.Unresolved);
+    }
+  }, [status]);
 
   const handleSave = () => {
     const q = new Quest(props.currentQuest.value);
@@ -42,6 +66,7 @@ export function QuestPane(props: QuestPaneProps) {
     q.reward = reward;
     q.impact = impact;
     q.priority = priority;
+    q.resolution = resolution;
     q.description = description;
     editQuest(q);
     props.currentQuest.value = -1; // close quest panel
@@ -253,6 +278,24 @@ export function QuestPane(props: QuestPaneProps) {
                 >
                   Internal
                 </option>
+              </select>
+            </div>
+          </div>
+          <div class="control">
+            <label class="label">Resolution:</label>
+            <div class="select">
+              <select
+                value={resolution}
+                onChange={(e) =>
+                  setResolution(
+                    QuestResolution[
+                      e.currentTarget.value as keyof typeof QuestResolution
+                    ],
+                  )}
+              >
+                <option value={QuestResolution.Unresolved}>Unresolved</option>
+                <option value={QuestResolution.Failure}>Failure</option>
+                <option value={QuestResolution.Resolved}>Resolved</option>
               </select>
             </div>
           </div>

@@ -16,10 +16,10 @@ _**SIMPLICITY**_ and _**ACCESSIBILITY**_
 - [x] User must be able to add new quests to their ledger.
 - [ ] User should be able to remove quests from the ledger.
 - [x] User should be able to add updates to a quest in the ledger.
-- [ ] Closed quests should be distinguished between completed and failed.
+- [x] Closed quests should be distinguished between completed and failed.
 - [x] The ledger should group quests as: **ACTIVE**, **TO DO**, or **CLOSED**.
 - [x] Quests should have categorical tags to sort their precedence: **MAIN**,
-      **SIDE**, **TASK**, or **LEAD**.
+      **SIDE**, **GIG**, or **LEAD**.
 - [x] Quests should be sorted based on their priority.
 - [ ] User must be able to save and load their ledger to and from a file.
 - [ ] User should be able to export the ledger to markdown or csv format.
