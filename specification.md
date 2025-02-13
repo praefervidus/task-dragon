@@ -21,7 +21,7 @@ _**SIMPLICITY**_ and _**ACCESSIBILITY**_
 - [x] Quests should have categorical tags to sort their precedence: **MAIN**,
       **SIDE**, **GIG**, or **LEAD**.
 - [x] Quests should be sorted based on their priority.
-- [ ] User must be able to save and load their ledger to and from a file.
+- [x] User must be able to save and load their ledger to and from a file.
 - [ ] User should be able to export the ledger to markdown or csv format.
 
 ## Definitions
