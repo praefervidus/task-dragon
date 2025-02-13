@@ -63,8 +63,8 @@ export interface QuestMeta {
   resolution: QuestResolution;
 }
 
-export class Quest {
-  #id: number;
+export interface Quest {
+  id: number;
   name: string;
   client: string;
   reward: string;
@@ -74,31 +74,14 @@ export class Quest {
   impact: QuestImpact;
   resolution: QuestResolution;
   description: string;
+}
 
-  constructor(id: number) {
-    this.#id = id;
-    this.description = "";
-    this.name = "";
-    this.client = "";
-    this.reward = "";
-    this.status = QuestStatus.ToDo;
-    this.type = QuestType.Lead;
-    this.priority = QuestPriority.No;
-    this.impact = QuestImpact.Internal;
-    this.resolution = QuestResolution.Unresolved;
-  }
-
-  id(): number {
-    return this.#id;
-  }
-
-  meta(): QuestMeta {
-    return {
-      id: this.#id,
-      type: this.type,
-      name: this.name,
-      priority: this.priority,
-      resolution: this.resolution,
-    };
-  }
+export function getQuestMeta(q: Quest): QuestMeta {
+  return {
+    id: q.id,
+    type: q.type,
+    name: q.name,
+    priority: q.priority,
+    resolution: q.resolution,
+  };
 }

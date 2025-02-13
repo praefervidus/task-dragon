@@ -59,16 +59,18 @@ export function QuestPane(props: QuestPaneProps) {
   }, [status]);
 
   const handleSave = () => {
-    const q = new Quest(props.currentQuest.value);
-    q.name = name;
-    q.type = questType;
-    q.status = status;
-    q.client = client;
-    q.reward = reward;
-    q.impact = impact;
-    q.priority = priority;
-    q.resolution = resolution;
-    q.description = description;
+    const q: Quest = {
+      id: props.currentQuest.value,
+      name: name,
+      client: client,
+      reward: reward,
+      status: status,
+      type: questType,
+      priority: priority,
+      impact: impact,
+      resolution: resolution,
+      description: description,
+    };
     editQuest(q);
     props.currentQuest.value = -1; // close quest panel
   };

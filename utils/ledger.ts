@@ -1,10 +1,19 @@
 import { signal } from "@preact/signals";
-import { Quest, QuestMeta, QuestStatus } from "../models/Quest.ts";
+import {
+  getQuestMeta,
+  Quest,
+  QuestImpact,
+  QuestMeta,
+  QuestPriority,
+  QuestResolution,
+  QuestStatus,
+  QuestType,
+} from "../models/Quest.ts";
 
 export const ledger = signal<Quest[]>([]);
 
 const getQuestIndex = (quests: Quest[], id: number): number => {
-  return quests.findIndex((q: Quest) => (q.id() == id));
+  return quests.findIndex((q: Quest) => (q.id == id));
 };
 
 const randomUniqueID = (quests: Quest[]): number => {
@@ -18,14 +27,26 @@ const randomUniqueID = (quests: Quest[]): number => {
 
 export function addQuest(): number {
   const newId = randomUniqueID(ledger.value);
-  ledger.value = [...ledger.value, new Quest(newId)];
+  const newQuest: Quest = {
+    id: newId,
+    name: "",
+    client: "",
+    reward: "",
+    status: QuestStatus.ToDo,
+    type: QuestType.Lead,
+    priority: QuestPriority.No,
+    impact: QuestImpact.Internal,
+    resolution: QuestResolution.Unresolved,
+    description: "",
+  };
+  ledger.value = [...ledger.value, newQuest];
   return newId;
 }
 export function getQuest(id: number): Quest | undefined {
-  return ledger.value.find((q) => q.id() == id);
+  return ledger.value.find((q) => q.id == id);
 }
 export function editQuest(newState: Quest) {
-  const index = getQuestIndex(ledger.value, newState.id());
+  const index = getQuestIndex(ledger.value, newState.id);
   if (index >= 0) {
     ledger.value[index] = newState;
   }
@@ -39,5 +60,5 @@ export function deleteQuest(id: number) {
 export function getQuestsMeta(status: QuestStatus): QuestMeta[] {
   return ledger.value
     .filter((q) => q.status == status)
-    .map((q) => q.meta());
+    .map((q) => getQuestMeta(q));
 }
