@@ -1,0 +1,36 @@
+const ICONS = {
+  headline: "\u{1F4F0}",
+  status: {
+    active: "\u{1F4D6}",
+    todo: "\u{1F4D1}",
+    closed: "\u{1F4D5}",
+  },
+  priority: {
+    critical: "\u26D4",
+    high: "\u2622",
+    medium: "\u26A0",
+    low: "\u{1F51C}",
+    none: "\u23F8",
+  },
+  resolution: {
+    unresolved: "\u2B55",
+    failure: "\u274C",
+    resolved: "\u2705",
+  },
+  impact: {
+    cosmic: "\u{1F409}",
+    galactic: "\u{1F30C}",
+    stellar: "\u{1F31F}",
+    planetary: "\u{1F30F}",
+    national: "\u{1F5FE}",
+    provincial: "\u{1F304}",
+    municipal: "\u{1F306}",
+    local: "\u{1F3E2}",
+    familial: "\u{1F46A}",
+    internal: "\u{1F3E1}",
+  },
+  client: "\u{1F464}",
+  reward: "\u{1F4B0}",
+};
+
+export default ICONS;

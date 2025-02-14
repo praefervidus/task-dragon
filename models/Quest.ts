@@ -1,4 +1,5 @@
 import * as csv from "@std/csv";
+import ICONS from "../utils/icons.ts";
 
 export enum QuestStatus {
   Active = "Active",
@@ -21,10 +22,36 @@ export enum QuestPriority {
   No = "None",
 }
 
+export function getIconForQuestPriority(p: QuestPriority): string {
+  switch (p) {
+    case QuestPriority.Critical:
+      return ICONS.priority.critical;
+    case QuestPriority.High:
+      return ICONS.priority.high;
+    case QuestPriority.Medium:
+      return ICONS.priority.medium;
+    case QuestPriority.Low:
+      return ICONS.priority.low;
+    case QuestPriority.No:
+      return ICONS.priority.none;
+  }
+}
+
 export enum QuestResolution {
   Unresolved = "Unresolved",
   Failure = "Failure",
   Resolved = "Resolved",
+}
+
+export function getIconForQuestResolution(r: QuestResolution): string {
+  switch (r) {
+    case QuestResolution.Unresolved:
+      return ICONS.resolution.unresolved;
+    case QuestResolution.Failure:
+      return ICONS.resolution.failure;
+    case QuestResolution.Resolved:
+      return ICONS.resolution.resolved;
+  }
 }
 
 export const enumeratePriority = (p: QuestPriority): number => {
@@ -47,14 +74,37 @@ export enum QuestImpact {
   Galactic = "Galactic",
   Stellar = "Stellar",
   Planetary = "Planetary",
-  Regional = "Regional",
   National = "National",
   Provincial = "Provincial",
-  County = "County",
   Municipal = "Municipal",
   Local = "Local",
   Familial = "Familial",
   Internal = "Internal",
+}
+
+export function getIconForQuestImpact(i: QuestImpact): string {
+  switch (i) {
+    case QuestImpact.Cosmic:
+      return ICONS.impact.cosmic;
+    case QuestImpact.Galactic:
+      return ICONS.impact.galactic;
+    case QuestImpact.Stellar:
+      return ICONS.impact.stellar;
+    case QuestImpact.Planetary:
+      return ICONS.impact.planetary;
+    case QuestImpact.National:
+      return ICONS.impact.national;
+    case QuestImpact.Provincial:
+      return ICONS.impact.provincial;
+    case QuestImpact.Municipal:
+      return ICONS.impact.municipal;
+    case QuestImpact.Local:
+      return ICONS.impact.local;
+    case QuestImpact.Familial:
+      return ICONS.impact.familial;
+    case QuestImpact.Internal:
+      return ICONS.impact.internal;
+  }
 }
 
 export interface QuestMeta {
@@ -63,6 +113,7 @@ export interface QuestMeta {
   name: string;
   priority: QuestPriority;
   resolution: QuestResolution;
+  impact: QuestImpact;
 }
 
 export interface Quest {
@@ -85,7 +136,23 @@ export function getQuestMeta(q: Quest): QuestMeta {
     name: q.name,
     priority: q.priority,
     resolution: q.resolution,
+    impact: q.impact,
   };
+}
+
+export function getTagColorFromQuestType(qt: QuestType): string {
+  switch (qt) {
+    case QuestType.Main:
+      return "is-danger";
+    case QuestType.Side:
+      return "is-warning";
+    case QuestType.Gig:
+      return "is-success";
+    case QuestType.Lead:
+      return "is-info";
+    default:
+      return "is-light";
+  }
 }
 
 export function QuestsToCSV(qs: Quest[]): string {

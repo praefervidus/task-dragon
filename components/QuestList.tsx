@@ -1,24 +1,15 @@
-import { QuestMeta, QuestType } from "../models/Quest.ts";
+import {
+  getIconForQuestImpact,
+  getIconForQuestPriority,
+  getIconForQuestResolution,
+  getTagColorFromQuestType,
+  QuestMeta,
+} from "../models/Quest.ts";
 import { Signal } from "@preact/signals";
 
 interface QuestListProps {
   quests: QuestMeta[];
   currentQuest: Signal<number>;
-}
-
-function getColorFromQuestType(qt: QuestType): string {
-  switch (qt) {
-    case QuestType.Main:
-      return "is-danger";
-    case QuestType.Side:
-      return "is-warning";
-    case QuestType.Gig:
-      return "is-success";
-    case QuestType.Lead:
-      return "is-info";
-    default:
-      return "is-light";
-  }
 }
 
 export default function QuestList(props: QuestListProps) {
@@ -34,8 +25,20 @@ export default function QuestList(props: QuestListProps) {
       {props.quests.map((q: QuestMeta) => (
         <li onClick={() => clickQuestHandler(q.id)}>
           <a class={(props.currentQuest.value == q.id) ? "is-active" : ""}>
+            <span title={q.resolution}>
+              {getIconForQuestResolution(q.resolution)}
+            </span>
+            &ensp;
+            <span title={q.priority}>
+              {getIconForQuestPriority(q.priority)}
+            </span>
+            &ensp;
+            <span title={q.impact}>
+              {getIconForQuestImpact(q.impact)}
+            </span>
+            &emsp;
             <span
-              class={`tag ${getColorFromQuestType(q.type)}`}
+              class={`tag ${getTagColorFromQuestType(q.type)}`}
             >
               {q.type}
             </span>

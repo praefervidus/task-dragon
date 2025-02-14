@@ -13,6 +13,7 @@ import {
 } from "../models/Quest.ts";
 import { QuestPane } from "./QuestPane.tsx";
 import { useSignal } from "@preact/signals";
+import ICONS from "../utils/icons.ts";
 
 export default function LedgerPanel() {
   const [selectedTab, setSelectedTab] = useState(SelectedTab.All);
@@ -102,14 +103,22 @@ export default function LedgerPanel() {
             {(selectedTab !== SelectedTab.Closed)
               ? (
                 <>
-                  <p class="menu-label">Active</p>
+                  <p class="menu-label">
+                    <span class="icon">{ICONS.status.active}</span>
+                    &ensp;
+                    <span>Active</span>
+                  </p>
                   <QuestList
                     quests={sortQuests(
                       filterQuests(getQuestsMeta(QuestStatus.Active)),
                     )}
                     currentQuest={selectedQuest}
                   />
-                  <p class="menu-label">To Do</p>
+                  <p class="menu-label">
+                    <span class="icon">{ICONS.status.todo}</span>
+                    &ensp;
+                    <span>To Do</span>
+                  </p>
                   <QuestList
                     quests={sortQuests(
                       filterQuests(getQuestsMeta(QuestStatus.ToDo)),
@@ -120,10 +129,14 @@ export default function LedgerPanel() {
               )
               : <></>}
             {(selectedTab === SelectedTab.All ||
-                selectedTab === SelectedTab.Closed)
+              selectedTab === SelectedTab.Closed)
               ? (
                 <>
-                  <p class="menu-label">Closed</p>
+                  <p class="menu-label">
+                    <span class="icon">{ICONS.status.closed}</span>
+                    &ensp;
+                    <span>Closed</span>
+                  </p>
                   <QuestList
                     quests={sortQuests(getQuestsMeta(QuestStatus.Closed))}
                     currentQuest={selectedQuest}
