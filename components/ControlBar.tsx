@@ -1,6 +1,6 @@
 import { Signal } from "@preact/signals";
 import { ledger } from "../utils/ledger.ts";
-import { Quest } from "../models/Quest.ts";
+import { Quest, QuestsToCSV } from "../models/Quest.ts";
 import { JSX } from "preact/jsx-runtime";
 
 interface ControlBarProps {
@@ -10,6 +10,19 @@ interface ControlBarProps {
 
 const handleAddQuest = (props: ControlBarProps): void => {
   props.currentQuest.value = props.addQuest();
+};
+
+const downloadFile = (file: File): void => {
+  const url = URL.createObjectURL(file);
+  const tmpElement = globalThis.document.createElement("a");
+  tmpElement.href = url;
+  tmpElement.download = file.name;
+  tmpElement.target = "_blank";
+  tmpElement.setAttribute("style", "display:none");
+  globalThis.document.body.appendChild(tmpElement);
+  tmpElement.click();
+  tmpElement.remove();
+  URL.revokeObjectURL(url);
 };
 
 export default function ControlBar(props: ControlBarProps) {
@@ -42,16 +55,13 @@ export default function ControlBar(props: ControlBarProps) {
     const file = new File([jsonString], defaultSaveFileName, {
       type: "application/json",
     });
-    const url = URL.createObjectURL(file);
-    const tmpElement = globalThis.document.createElement("a");
-    tmpElement.href = url;
-    tmpElement.download = defaultSaveFileName;
-    tmpElement.target = "_blank";
-    tmpElement.setAttribute("style", "display:none");
-    globalThis.document.body.appendChild(tmpElement);
-    tmpElement.click();
-    tmpElement.remove();
-    URL.revokeObjectURL(url);
+    downloadFile(file);
+  };
+
+  const handleExportCSV = (): void => {
+    const csvString = QuestsToCSV(ledger.value);
+    const file = new File([csvString], "ledger.csv", { type: "text/csv" });
+    downloadFile(file);
   };
 
   return (
@@ -90,7 +100,24 @@ export default function ControlBar(props: ControlBarProps) {
         </a>
       </p>
       <p class="level-item has-text-centered">
-        <a class="link is-info">Export</a>
+        <div class="dropdown is-hoverable">
+          <div class="dropdown-trigger">
+            <button
+              class="button is-info"
+              aria-haspopup="true"
+              aria-controls="exportDropdown"
+            >
+              Export
+            </button>
+          </div>
+          <div class="dropdown-menu" id="exportDropdown" role="menu">
+            <div class="dropdown-content">
+              <a class="dropdown-item" onClick={handleExportCSV}>
+                Export to CSV File...
+              </a>
+            </div>
+          </div>
+        </div>
       </p>
       <p class="level-item has-text-centered">
         <a class="link is-info">About</a>

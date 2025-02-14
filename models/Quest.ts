@@ -1,3 +1,5 @@
+import * as csv from "@std/csv";
+
 export enum QuestStatus {
   Active = "Active",
   ToDo = "To Do",
@@ -84,4 +86,35 @@ export function getQuestMeta(q: Quest): QuestMeta {
     priority: q.priority,
     resolution: q.resolution,
   };
+}
+
+export function QuestsToCSV(qs: Quest[]): string {
+  const header = [
+    "Resolution",
+    "Status",
+    "Type",
+    "Name",
+    "Client",
+    "Priority",
+    "Impact",
+    "Reward",
+    "Description",
+  ];
+  const dataWithHeader = [
+    header,
+    ...qs.map(
+      (q) => [
+        q.resolution.valueOf(),
+        q.status.valueOf(),
+        q.type.valueOf(),
+        q.name,
+        q.client,
+        q.priority.valueOf(),
+        q.impact.valueOf(),
+        q.reward,
+        q.description,
+      ],
+    ),
+  ];
+  return csv.stringify(dataWithHeader, { headers: true });
 }

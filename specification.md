@@ -22,7 +22,8 @@ _**SIMPLICITY**_ and _**ACCESSIBILITY**_
       **SIDE**, **GIG**, or **LEAD**.
 - [x] Quests should be sorted based on their priority.
 - [x] User must be able to save and load their ledger to and from a file.
-- [ ] User should be able to export the ledger to markdown or csv format.
+- [x] User should be able to export the ledger to csv format.
+- [ ] User should be able to export the ledger to markdown format.
 
 ## Definitions
 
