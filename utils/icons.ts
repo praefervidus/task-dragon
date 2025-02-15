@@ -7,10 +7,10 @@ const ICONS = {
   },
   priority: {
     critical: "\u26D4",
-    high: "\u2622",
-    medium: "\u26A0",
+    high: "\u2622\u{FE0F}",
+    medium: "\u26A0\u{FE0F}",
     low: "\u{1F51C}",
-    none: "\u23F8",
+    none: "\u23F8\u{FE0F}",
   },
   resolution: {
     unresolved: "\u2B55",
@@ -33,7 +33,8 @@ const ICONS = {
   reward: "\u{1F4B0}",
   open: "\u{1F4C2}",
   save: "\u{1F4BE}",
-  export: "\u{1F5A8}",
+  export: "\u{1F5A8}\u{FE0F}",
+  about: "\u2754\uFE0E",
   discard: "\u2326",
   trash: "\u{1F5D1}\u{FE0F}",
 };

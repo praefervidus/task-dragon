@@ -88,6 +88,7 @@ export function QuestPane(props: QuestPaneProps) {
         <div class="field">
           <div class="control has-icons-left">
             <input
+              title="Headline"
               class="input is-large"
               type="text"
               placeholder="Headline"
@@ -99,9 +100,9 @@ export function QuestPane(props: QuestPaneProps) {
         </div>
         <div class="field is-grouped">
           <div class="control">
-            <label class="label">Status:</label>
             <div class="select">
               <select
+                title="Status"
                 value={status}
                 onChange={(e) =>
                   setStatus(
@@ -135,9 +136,9 @@ export function QuestPane(props: QuestPaneProps) {
             </div>
           </div>
           <div class="control">
-            <label class="label">Type:</label>
             <div class="select">
               <select
+                title="Type"
                 value={questType}
                 onChange={(e) =>
                   setQuestType(
@@ -167,9 +168,9 @@ export function QuestPane(props: QuestPaneProps) {
             </div>
           </div>
           <div class="control">
-            <label class="label">Priority:</label>
             <div class="select">
               <select
+                title="Priority"
                 value={priority}
                 onChange={(e) =>
                   setPriority(
@@ -184,7 +185,6 @@ export function QuestPane(props: QuestPaneProps) {
                 >
                   <span class="icon-text">
                     <span class="icon">{ICONS.priority.critical}</span>
-                    <span>&ensp;&ensp;</span>
                     <span>Critical</span>
                   </span>
                 </option>
@@ -194,7 +194,6 @@ export function QuestPane(props: QuestPaneProps) {
                 >
                   <span class="icon-text">
                     <span class="icon">{ICONS.priority.high}</span>
-                    <span>&ensp;&ensp;</span>
                     <span>High</span>
                   </span>
                 </option>
@@ -204,7 +203,6 @@ export function QuestPane(props: QuestPaneProps) {
                 >
                   <span class="icon-text">
                     <span class="icon">{ICONS.priority.medium}</span>
-                    <span>&ensp;&ensp;</span>
                     <span>Medium</span>
                   </span>
                 </option>
@@ -214,7 +212,6 @@ export function QuestPane(props: QuestPaneProps) {
                 >
                   <span class="icon-text">
                     <span class="icon">{ICONS.priority.low}</span>
-                    <span>&ensp;&ensp;</span>
                     <span>Low</span>
                   </span>
                 </option>
@@ -224,182 +221,177 @@ export function QuestPane(props: QuestPaneProps) {
                 >
                   <span class="icon-text">
                     <span class="icon">{ICONS.priority.none}</span>
-                    <span>&ensp;&ensp;</span>
                     <span>None</span>
                   </span>
                 </option>
               </select>
             </div>
           </div>
-          <div class="control">
-            <label class="label">Impact:</label>
-            <div class="select">
-              <select
-                value={impact}
-                onChange={(e) =>
-                  setImpact(
-                    QuestImpact[
-                    e.currentTarget.value as keyof typeof QuestImpact
-                    ],
-                  )}
-              >
-                <option
-                  value={QuestImpact.Cosmic}
-                  title="Affects the whole universe or beyond."
-                >
-                  <span class="icon-text">
-                    <span class="icon">{ICONS.impact.cosmic}</span>
-                    <span>Cosmic</span>
-                  </span>
-                </option>
-                <option
-                  value={QuestImpact.Galactic}
-                  title="Affects at least one galaxy."
-                >
-                  <span class="icon-text">
-                    <span class="icon">{ICONS.impact.galactic}</span>
-                    <span>Galactic</span>
-                  </span>
-                </option>
-                <option
-                  value={QuestImpact.Stellar}
-                  title="Affects at least one solar system."
-                >
-                  <span class="icon-text">
-                    <span class="icon">{ICONS.impact.stellar}</span>
-                    <span>Stellar</span>
-                  </span>
-                </option>
-                <option
-                  value={QuestImpact.Planetary}
-                  title="Affects at least one planet."
-                >
-                  <span class="icon-text">
-                    <span class="icon">{ICONS.impact.planetary}</span>
-                    <span>Planetary</span>
-                  </span>
-                </option>
-                <option
-                  value={QuestImpact.National}
-                  title="Affects at least one nation."
-                >
-                  <span class="icon-text">
-                    <span class="icon">{ICONS.impact.national}</span>
-                    <span>National</span>
-                  </span>
-                </option>
-                <option
-                  value={QuestImpact.Provincial}
-                  title="Affects at least one province or state."
-                >
-                  <span class="icon-text">
-                    <span class="icon">{ICONS.impact.provincial}</span>
-                    <span>Provincial</span>
-                  </span>
-                </option>
-                <option
-                  value={QuestImpact.Municipal}
-                  title="Affects at least one town or city."
-                >
-                  <span class="icon-text">
-                    <span class="icon">{ICONS.impact.municipal}</span>
-                    <span>Municipal</span>
-                  </span>
-                </option>
-                <option
-                  value={QuestImpact.Local}
-                  title="Affects a small locality."
-                >
-                  <span class="icon-text">
-                    <span class="icon">{ICONS.impact.local}</span>
-                    <span>Local</span>
-                  </span>
-                </option>
-                <option
-                  value={QuestImpact.Familial}
-                  title="Affects family and friends."
-                >
-                  <span class="icon-text">
-                    <span class="icon">{ICONS.impact.familial}</span>
-                    <span>Familial</span>
-                  </span>
-                </option>
-                <option
-                  value={QuestImpact.Internal}
-                  title="Affects you and those who live with you."
-                >
-                  <span class="icon-text">
-                    <span class="icon">{ICONS.impact.internal}</span>
-                    <span>Internal</span>
-                  </span>
-                </option>
-              </select>
-            </div>
-          </div>
-          <div class="control">
-            <label class="label">Resolution:</label>
-            <div class="select">
-              <select
-                value={resolution}
-                onChange={(e) =>
-                  setResolution(
-                    QuestResolution[
-                    e.currentTarget.value as keyof typeof QuestResolution
-                    ],
-                  )}
-              >
-                <option value={QuestResolution.Unresolved}>
-                  <span class="icon-text">
-                    <span class="icon">{ICONS.resolution.unresolved}</span>
-                    <span>Unresolved</span>
-                  </span>
-                </option>
-                <option value={QuestResolution.Failure}>
-                  <span class="icon-text">
-                    <span class="icon">{ICONS.resolution.failure}</span>
-                    <span>Failure</span>
-                  </span>
-                </option>
-                <option value={QuestResolution.Resolved}>
-                  <span class="icon-text">
-                    <span class="icon">{ICONS.resolution.resolved}</span>
-                    <span>Resolved</span>
-                  </span>
-                </option>
-              </select>
-            </div>
-          </div>
         </div>
-        <div class="field">
-          <div class="control">
-            <label class="label">
-              <span class="icon-text">
-                <span class="icon">{ICONS.client}</span>
-                <span>Client:</span>
-              </span>
-            </label>
-            <input
-              class="input"
-              type="text"
-              placeholder="Client name"
-              value={client}
-              onChange={(e) => setClient(e.currentTarget.value)}
-            />
+        <div class="field columns">
+          <div class="column level-left">
+            <div class="control">
+              <div class="select">
+                <select
+                  title="Resolution"
+                  value={resolution}
+                  onChange={(e) =>
+                    setResolution(
+                      QuestResolution[
+                      e.currentTarget.value as keyof typeof QuestResolution
+                      ],
+                    )}
+                >
+                  <option value={QuestResolution.Unresolved}>
+                    <span class="icon-text">
+                      <span class="icon">{ICONS.resolution.unresolved}</span>
+                      <span>Unresolved</span>
+                    </span>
+                  </option>
+                  <option value={QuestResolution.Failure}>
+                    <span class="icon-text">
+                      <span class="icon">{ICONS.resolution.failure}</span>
+                      <span>Failure</span>
+                    </span>
+                  </option>
+                  <option value={QuestResolution.Resolved}>
+                    <span class="icon-text">
+                      <span class="icon">{ICONS.resolution.resolved}</span>
+                      <span>Resolved</span>
+                    </span>
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="control">
+              <div class="select">
+                <select
+                  title="Impact"
+                  value={impact}
+                  onChange={(e) =>
+                    setImpact(
+                      QuestImpact[
+                      e.currentTarget.value as keyof typeof QuestImpact
+                      ],
+                    )}
+                >
+                  <option
+                    value={QuestImpact.Cosmic}
+                    title="Affects the whole universe or beyond."
+                  >
+                    <span class="icon-text">
+                      <span class="icon">{ICONS.impact.cosmic}</span>
+                      <span>Cosmic</span>
+                    </span>
+                  </option>
+                  <option
+                    value={QuestImpact.Galactic}
+                    title="Affects at least one galaxy."
+                  >
+                    <span class="icon-text">
+                      <span class="icon">{ICONS.impact.galactic}</span>
+                      <span>Galactic</span>
+                    </span>
+                  </option>
+                  <option
+                    value={QuestImpact.Stellar}
+                    title="Affects at least one solar system."
+                  >
+                    <span class="icon-text">
+                      <span class="icon">{ICONS.impact.stellar}</span>
+                      <span>Stellar</span>
+                    </span>
+                  </option>
+                  <option
+                    value={QuestImpact.Planetary}
+                    title="Affects at least one planet."
+                  >
+                    <span class="icon-text">
+                      <span class="icon">{ICONS.impact.planetary}</span>
+                      <span>Planetary</span>
+                    </span>
+                  </option>
+                  <option
+                    value={QuestImpact.National}
+                    title="Affects at least one nation."
+                  >
+                    <span class="icon-text">
+                      <span class="icon">{ICONS.impact.national}</span>
+                      <span>National</span>
+                    </span>
+                  </option>
+                  <option
+                    value={QuestImpact.Provincial}
+                    title="Affects at least one province or state."
+                  >
+                    <span class="icon-text">
+                      <span class="icon">{ICONS.impact.provincial}</span>
+                      <span>Provincial</span>
+                    </span>
+                  </option>
+                  <option
+                    value={QuestImpact.Municipal}
+                    title="Affects at least one town or city."
+                  >
+                    <span class="icon-text">
+                      <span class="icon">{ICONS.impact.municipal}</span>
+                      <span>Municipal</span>
+                    </span>
+                  </option>
+                  <option
+                    value={QuestImpact.Local}
+                    title="Affects a small locality."
+                  >
+                    <span class="icon-text">
+                      <span class="icon">{ICONS.impact.local}</span>
+                      <span>Local</span>
+                    </span>
+                  </option>
+                  <option
+                    value={QuestImpact.Familial}
+                    title="Affects family and friends."
+                  >
+                    <span class="icon-text">
+                      <span class="icon">{ICONS.impact.familial}</span>
+                      <span>Familial</span>
+                    </span>
+                  </option>
+                  <option
+                    value={QuestImpact.Internal}
+                    title="Affects you and those who live with you."
+                  >
+                    <span class="icon-text">
+                      <span class="icon">{ICONS.impact.internal}</span>
+                      <span>Internal</span>
+                    </span>
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="control has-icons-left">
+              <input
+                title="Client"
+                class="input"
+                type="text"
+                placeholder="Client name"
+                value={client}
+                onChange={(e) => setClient(e.currentTarget.value)}
+              />
+              <span class="icon is-left">{ICONS.client}</span>
+            </div>
           </div>
-          <div class="control">
-            <label class="label">
-              <span class="icon-text">
-                <span class="icon">{ICONS.reward}</span>
-                <span>Reward:</span>
-              </span>
-            </label>
-            <input
-              class="input"
-              type="text"
-              placeholder="Reward and/or penalty (if any) for this quest's completion/failure..."
-              value={reward}
-              onChange={(e) => setReward(e.currentTarget.value)}
-            />
+          <div class="column">
+            <div class="control has-icons-left">
+              <input
+                title="Reward or penalty"
+                class="input"
+                type="text"
+                placeholder="Reward and/or penalty (if any) for this quest's completion/failure..."
+                value={reward}
+                onChange={(e) => setReward(e.currentTarget.value)}
+              />
+              <span class="icon is-left">{ICONS.reward}</span>
+            </div>
           </div>
         </div>
         <div class="field">
@@ -413,7 +405,7 @@ export function QuestPane(props: QuestPaneProps) {
           </div>
         </div>
         <div class="columns">
-          <div class="column field">
+          <div class="column buttons field">
             <div class="control level-left">
               <button class="button is-primary" onClick={handleSave}>
                 <span class="icon" title="Save changes...">

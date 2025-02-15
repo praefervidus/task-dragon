@@ -2,6 +2,9 @@ import { Signal } from "@preact/signals";
 import { ledger } from "../utils/ledger.ts";
 import { Quest, QuestsToCSV } from "../models/Quest.ts";
 import { JSX } from "preact/jsx-runtime";
+import ICONS from "../utils/icons.ts";
+import AddQuestIcon from "./icons/AddQuestIcon.tsx";
+import TaskDragonIcon from "./icons/TaskDragonIcon.tsx";
 
 interface ControlBarProps {
   addQuest: () => number;
@@ -65,63 +68,65 @@ export default function ControlBar(props: ControlBarProps) {
   };
 
   return (
-    <nav class="level-left">
-      <p class="level-item has-text-centered">
-        <button
-          class="button is-info is-large"
+    <nav class="navbar is-danger" role="navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item">
+          <span class="icon-text">
+            <TaskDragonIcon />
+            <span>
+              <h1 class="title is-4">Task Dragon</h1>
+            </span>
+          </span>
+        </a>
+        <a
+          class="navbar-item"
           onClick={() => handleAddQuest(props)}
+          title="Add a new quest..."
         >
-          +
-        </button>
-      </p>
-      <p class="level-item has-text-centered">
-        <input
-          id={fileInputId}
-          class="button is-info"
-          type="file"
-          accept=".json"
-          onInputCapture={handleLoadLedger}
-          style="display:none"
-        />
-        <a
-          class="button is-info"
-          onClick={() =>
-            globalThis.document.getElementById(fileInputId)?.click()}
-        >
-          Open
+          <AddQuestIcon />
         </a>
-      </p>
-      <p class="level-item has-text-centered">
-        <a
-          class="button is-info"
-          onClick={handleSaveLedger}
-        >
-          Save
+        <a class="navbar-item" onClick={() =>
+          globalThis.document.getElementById(fileInputId)?.click()}>
+          <input
+            id={fileInputId}
+            class="button is-info"
+            type="file"
+            accept=".json"
+            onInputCapture={handleLoadLedger}
+            style="display:none"
+          />
+          <span class="icon" title="Open...">{ICONS.open}</span>
         </a>
-      </p>
-      <p class="level-item has-text-centered">
-        <div class="dropdown is-hoverable">
-          <div class="dropdown-trigger">
-            <button
-              class="button is-info"
-              aria-haspopup="true"
-              aria-controls="exportDropdown"
-            >
-              Export
-            </button>
-          </div>
-          <div class="dropdown-menu" id="exportDropdown" role="menu">
-            <div class="dropdown-content">
-              <a class="dropdown-item" onClick={handleExportCSV}>
+        <a class="navbar-item" onClick={handleSaveLedger}>
+          <span class="icon" title="Save...">{ICONS.save}</span>
+        </a>
+      </div>
+      <div class="navbar-menu">
+        <div class="navbar-start">
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              <span class="icon" title="Export...">{ICONS.export}</span>
+            </a>
+            <div class="navbar-dropdown">
+              <a class="navbar-item" onClick={handleExportCSV}>
                 Export to CSV File...
               </a>
             </div>
           </div>
         </div>
-      </p>
-      <p class="level-item has-text-centered">
-        <a class="link is-info">About</a>
-      </p>
-    </nav>
+        <div class="navbar-end">
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              <span class="icon" title="About...">{ICONS.about}</span>
+            </a>
+            <div class="navbar-dropdown is-right">
+              <a class="navbar-item is-right">
+                <p>Task Dragon is a simple tool designed to assist TTRPG players with managing quests and activities.</p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav >
   );
 }

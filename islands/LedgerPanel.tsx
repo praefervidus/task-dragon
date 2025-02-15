@@ -91,7 +91,7 @@ export default function LedgerPanel() {
   };
 
   return (
-    <>
+    <main>
       <ControlBar addQuest={addQuest} currentQuest={selectedQuest} />
       <section class="columns" id="main-pane">
         <aside class="column is-one-third">
@@ -159,6 +159,6 @@ export default function LedgerPanel() {
           )
           : <></>}
       </section>
-    </>
+    </main>
   );
 }
