@@ -31,6 +31,11 @@ const ICONS = {
   },
   client: "\u{1F464}",
   reward: "\u{1F4B0}",
+  open: "\u{1F4C2}",
+  save: "\u{1F4BE}",
+  export: "\u{1F5A8}",
+  discard: "\u2326",
+  trash: "\u{1F5D1}\u{FE0F}",
 };
 
 export default ICONS;

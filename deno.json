@@ -25,7 +25,6 @@
     "@std/csv": "https://esm.sh/jsr/@std/csv@1.0.5",
     "preact": "https://esm.sh/preact@10.22.0",
     "preact/": "https://esm.sh/preact@10.22.0/",
-    "@preact-icons/fa": "https://esm.sh/jsr/@preact-icons/fa@1.0.12",
     "@preact/signals": "https://esm.sh/*@preact/signals@1.2.2",
     "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.1",
     "$std/": "https://deno.land/std@0.216.0/"

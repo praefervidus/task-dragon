@@ -104,9 +104,10 @@ export default function LedgerPanel() {
               ? (
                 <>
                   <p class="menu-label">
-                    <span class="icon">{ICONS.status.active}</span>
-                    &ensp;
-                    <span>Active</span>
+                    <span class="icon-text">
+                      <span class="icon">{ICONS.status.active}</span>
+                      <span>Active</span>
+                    </span>
                   </p>
                   <QuestList
                     quests={sortQuests(
@@ -115,9 +116,10 @@ export default function LedgerPanel() {
                     currentQuest={selectedQuest}
                   />
                   <p class="menu-label">
-                    <span class="icon">{ICONS.status.todo}</span>
-                    &ensp;
-                    <span>To Do</span>
+                    <span class="icon-text">
+                      <span class="icon">{ICONS.status.todo}</span>
+                      <span>To Do</span>
+                    </span>
                   </p>
                   <QuestList
                     quests={sortQuests(
@@ -133,9 +135,10 @@ export default function LedgerPanel() {
               ? (
                 <>
                   <p class="menu-label">
-                    <span class="icon">{ICONS.status.closed}</span>
-                    &ensp;
-                    <span>Closed</span>
+                    <span class="icon-text">
+                      <span class="icon">{ICONS.status.closed}</span>
+                      <span>Closed</span>
+                    </span>
                   </p>
                   <QuestList
                     quests={sortQuests(getQuestsMeta(QuestStatus.Closed))}
