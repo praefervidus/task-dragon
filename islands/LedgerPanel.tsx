@@ -151,7 +151,7 @@ export default function LedgerPanel() {
         </aside>
         {(selectedQuest.value > 0)
           ? (
-            <article class="column is-two-thirds panel">
+            <article class="column is-two-thirds panel has-background-danger-dark">
               <QuestPane
                 currentQuest={selectedQuest}
               />

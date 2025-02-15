@@ -24,7 +24,7 @@ export default function QuestList(props: QuestListProps) {
     <ul class="menu-list">
       {props.quests.map((q: QuestMeta) => (
         <li onClick={() => clickQuestHandler(q.id)}>
-          <a class={(props.currentQuest.value == q.id) ? "is-active" : ""}>
+          <a class={(props.currentQuest.value == q.id) ? "is-active has-background-danger-dark" : ""}>
             <span title={q.resolution}>
               {getIconForQuestResolution(q.resolution)}
             </span>
@@ -38,9 +38,9 @@ export default function QuestList(props: QuestListProps) {
             </span>
             &emsp;
             <span
-              class={`tag ${getTagColorFromQuestType(q.type)}`}
+              class={`tag ${getTagColorFromQuestType(q.type)} has-text-white`}
             >
-              {q.type}
+              <b>{q.type}</b>
             </span>
             &ensp;
             <span>{q.name}</span>

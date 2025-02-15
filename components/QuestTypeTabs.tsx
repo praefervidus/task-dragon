@@ -16,74 +16,81 @@ export interface QuestTypeTabsProps {
 }
 
 export function QuestTypeTabs(props: QuestTypeTabsProps) {
+  const activeStyle = "is-active";
+  const linkStyle = "has-text-white";
   return (
     <header class="tabs is-boxed">
       <ul>
         <li
           class={(props.currentSelection === SelectedTab.All)
-            ? "is-active"
+            ? activeStyle
             : ""}
         >
           <a
             onClick={() => props.setSelection(SelectedTab.All)}
+            class={linkStyle}
           >
             All
           </a>
         </li>
         <li
           class={(props.currentSelection === SelectedTab.Main)
-            ? "is-active"
+            ? activeStyle
             : ""}
         >
           <a
             onClick={() => props.setSelection(SelectedTab.Main)}
             title="Part of the central story."
+            class={linkStyle}
           >
             Main
           </a>
         </li>
         <li
           class={(props.currentSelection === SelectedTab.Side)
-            ? "is-active"
+            ? activeStyle
             : ""}
         >
           <a
             onClick={() => props.setSelection(SelectedTab.Side)}
             title="An arc peripheral but not unrelated to the central plot."
+            class={linkStyle}
           >
             Side
           </a>
         </li>
         <li
           class={(props.currentSelection === SelectedTab.Gigs)
-            ? "is-active"
+            ? activeStyle
             : ""}
         >
           <a
             onClick={() => props.setSelection(SelectedTab.Gigs)}
             title="A quick job."
+            class={linkStyle}
           >
             Gigs
           </a>
         </li>
         <li
           class={(props.currentSelection === SelectedTab.Leads)
-            ? "is-active"
+            ? activeStyle
             : ""}
         >
           <a
             onClick={() => props.setSelection(SelectedTab.Leads)}
             title="An interesting rumor to follow."
+            class={linkStyle}
           >
             Leads
           </a>
         </li>
         <li
           class={(props.currentSelection === SelectedTab.Closed)
-            ? "is-active"
+            ? activeStyle
             : ""}
         >
-          <a onClick={() => props.setSelection(SelectedTab.Closed)}>Closed</a>
+          <a onClick={() => props.setSelection(SelectedTab.Closed)} class={linkStyle}>Closed</a>
         </li>
       </ul>
     </header>
