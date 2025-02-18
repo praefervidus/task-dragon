@@ -83,10 +83,10 @@ export default function ControlBar(props: ControlBarProps) {
     downloadFile(file);
   };
 
-  const handleExportMarkdownDashboard = (): void => {
-    const defaultDashboardFileName = "dashboard.md";
-    const mdString = ConvertLedgerDashboardToMarkdown();
-    const file = new File([mdString], defaultDashboardFileName, { type: "text/markdown" });
+  const handleExportMarkdownFile = (): void => {
+    const defaultFileName = "ledger.md";
+    const mdString = ConvertLedgerDashboardToMarkdown(false);
+    const file = new File([mdString], defaultFileName, { type: "text/markdown" });
     downloadFile(file);
   };
 
@@ -98,7 +98,7 @@ export default function ControlBar(props: ControlBarProps) {
     await zipWriter.add("index.md", indexFileContents);
     await zipWriter.add("quests", undefined, { directory: true });
     ledger.value.forEach(async q => {
-      const content = new TextReader(`[< Back to Quest Log](../index.md)\n\n${ConvertQuestToMarkdown(q)}`);
+      const content = new TextReader(`[< Back to Quest Log](../index.md)\n\n${ConvertQuestToMarkdown(q, true)}`);
       await zipWriter.add(`quests/${q.id}.md`, content);
     });
 
@@ -151,8 +151,8 @@ export default function ControlBar(props: ControlBarProps) {
               <a class="navbar-item" onClick={handleExportCSV}>
                 Export to CSV File...
               </a>
-              <a class="navbar-item" onClick={handleExportMarkdownDashboard}>
-                Export Dashboard to Markdown File...
+              <a class="navbar-item" onClick={handleExportMarkdownFile}>
+                Export to Markdown File...
               </a>
               <a class="navbar-item" onClick={handleExportMarkdownArchive}>
                 Export to Markdown Archive...

@@ -1,5 +1,6 @@
 import { signal } from "@preact/signals";
 import {
+  ConvertQuestToMarkdown,
   getQuestMeta,
   getQuestTypeBadgeMarkdown,
   Quest,
@@ -142,7 +143,9 @@ const ConvertQuestMetaToMarkdown = (
   } ${getMarkdownIconForPriority(quest.priority)} ${
     getMarkdownIconForImpact(quest.impact)
   } -- ${
-    (!forArchive) ? quest.name : `[${quest.name}](./quests/${quest.id}.md)`
+    (!forArchive)
+      ? `[${quest.name}](#quest${quest.id})`
+      : `[${quest.name}](./quests/${quest.id}.md)`
   }`;
 };
 
@@ -155,9 +158,7 @@ const ConvertQuestListToMarkdown = (
   );
 };
 
-export function ConvertLedgerDashboardToMarkdown(
-  forArchive: boolean = false,
-): string {
+export function ConvertLedgerDashboardToMarkdown(forArchive: boolean): string {
   return (
     `# Quest Log
 ## Active
@@ -181,6 +182,13 @@ ${
         forArchive,
       )
     }
-  `
+${
+      forArchive
+        ? ""
+        : `<hr>\n\n\n${
+          ledger.value.map((q) => ConvertQuestToMarkdown(q, false)).join("\n\n")
+        }`
+    }
+`
   );
 }

@@ -199,14 +199,19 @@ export const getQuestTypeBadgeMarkdown = (qt: QuestType): string => {
   }
 };
 
-export function ConvertQuestToMarkdown(quest: Quest): string {
-  return (
-    `# ${getQuestTypeBadgeMarkdown(quest.type)} ${quest.name}
+export function ConvertQuestToMarkdown(
+  quest: Quest,
+  forArchive: boolean,
+): string {
+  return `${
+    forArchive
+      ? "#"
+      : `### <span style="display:none">quest${quest.id}</span>\n#`
+  } ${getQuestTypeBadgeMarkdown(quest.type)} ${quest.name}\n
 _Status:_ *${quest.status.toUpperCase()} --- ${quest.resolution.toUpperCase()}* <br>
 _Priority:_ *${quest.priority.toUpperCase()}* &emsp;&emsp; _Impact:_ *${quest.impact.toUpperCase()}* <br>
 _Client:_ ${quest.client} &emsp; _Reward:_ ${quest.reward} <br>
-<hr>
+${forArchive ? "<hr>" : "<br>"}
 <br>
-${quest.description}`
-  );
+${quest.description}`;
 }

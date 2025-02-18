@@ -25,7 +25,7 @@ _**SIMPLICITY**_ and _**ACCESSIBILITY**_
 - [x] User should be able to export the ledger to csv format.
 - [x] User should be able to export the ledger's entirety to a folder of
       markdown files.
-- [ ] User should have the option to download the whole ledger in one markdown
+- [x] User should have the option to download the whole ledger in one markdown
       file.
 
 ## Definitions
