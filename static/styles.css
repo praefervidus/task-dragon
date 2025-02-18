@@ -16,3 +16,11 @@
 #main-pane {
   padding: 2em;
 }
+
+textarea {
+  overflow-y: auto;
+}
+
+#questpane {
+  resize: vertical;
+}

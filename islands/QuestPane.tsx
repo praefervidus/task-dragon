@@ -84,7 +84,7 @@ export function QuestPane(props: QuestPaneProps) {
 
   return (quest !== undefined)
     ? (
-      <div>
+      <div id="quest-pane">
         <div class="field">
           <div class="control has-icons-left">
             <input
