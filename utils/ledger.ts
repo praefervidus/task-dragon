@@ -1,6 +1,7 @@
 import { signal } from "@preact/signals";
 import {
   getQuestMeta,
+  getQuestTypeBadgeMarkdown,
   Quest,
   QuestImpact,
   QuestMeta,
@@ -132,27 +133,54 @@ const getMarkdownIconForImpact = (i: QuestImpact): string => {
   }
 };
 
-const ConvertQuestMetaToMarkdown = (quest: QuestMeta): string => {
-  return `- ${
-    getMarkdownIconForResolution(quest.resolution)
-  } [${quest.type.toUpperCase()}] ${
-    getMarkdownIconForPriority(quest.priority)
-  } ${getMarkdownIconForImpact(quest.impact)} -- ${quest.name}`;
+const ConvertQuestMetaToMarkdown = (
+  quest: QuestMeta,
+  forArchive: boolean,
+): string => {
+  return `- ${getMarkdownIconForResolution(quest.resolution)} ${
+    getQuestTypeBadgeMarkdown(quest.type)
+  } ${getMarkdownIconForPriority(quest.priority)} ${
+    getMarkdownIconForImpact(quest.impact)
+  } -- ${
+    (!forArchive) ? quest.name : `[${quest.name}](./quests/${quest.id}.md)`
+  }`;
 };
 
-const ConvertQuestListToMarkdown = (quests: QuestMeta[]): string => {
-  return quests.map((q) => ConvertQuestMetaToMarkdown(q)).join("\n");
+const ConvertQuestListToMarkdown = (
+  quests: QuestMeta[],
+  forArchive: boolean,
+): string => {
+  return quests.map((q) => ConvertQuestMetaToMarkdown(q, forArchive)).join(
+    "\n",
+  );
 };
 
-export function ConvertLedgerDashboardToMarkdown(): string {
+export function ConvertLedgerDashboardToMarkdown(
+  forArchive: boolean = false,
+): string {
   return (
     `# Quest Log
 ## Active
-${ConvertQuestListToMarkdown(sortQuests(getQuestsMeta(QuestStatus.Active)))}
+${
+      ConvertQuestListToMarkdown(
+        sortQuests(getQuestsMeta(QuestStatus.Active)),
+        forArchive,
+      )
+    }
 ## To Do
-${ConvertQuestListToMarkdown(sortQuests(getQuestsMeta(QuestStatus.ToDo)))}
+${
+      ConvertQuestListToMarkdown(
+        sortQuests(getQuestsMeta(QuestStatus.ToDo)),
+        forArchive,
+      )
+    }
 ## Closed
-${ConvertQuestListToMarkdown(sortQuests(getQuestsMeta(QuestStatus.Closed)))}
+${
+      ConvertQuestListToMarkdown(
+        sortQuests(getQuestsMeta(QuestStatus.Closed)),
+        forArchive,
+      )
+    }
   `
   );
 }

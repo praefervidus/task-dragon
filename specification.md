@@ -23,9 +23,10 @@ _**SIMPLICITY**_ and _**ACCESSIBILITY**_
 - [x] Quests should be sorted based on their priority.
 - [x] User must be able to save and load their ledger to and from a file.
 - [x] User should be able to export the ledger to csv format.
-- [x] User should be able to export the ledger's dashboard to markdown format.
-- [ ] User should be able to export the ledger's entirety to a folder of
+- [x] User should be able to export the ledger's entirety to a folder of
       markdown files.
+- [ ] User should have the option to download the whole ledger in one markdown
+      file.
 
 ## Definitions
 

@@ -5,6 +5,8 @@ import { JSX } from "preact/jsx-runtime";
 import ICONS from "../utils/icons.ts";
 import AddQuestIcon from "./icons/AddQuestIcon.tsx";
 import TaskDragonIcon from "./icons/TaskDragonIcon.tsx";
+import { ConvertQuestToMarkdown } from "../models/Quest.ts";
+import { BlobWriter, TextReader, ZipWriter } from "zip-js";
 
 interface ControlBarProps {
   addQuest: () => number;
@@ -27,6 +29,19 @@ const downloadFile = (file: File): void => {
   tmpElement.remove();
   URL.revokeObjectURL(url);
 };
+
+const downloadBlob = (blob: Blob, name: string): void => {
+  const url = URL.createObjectURL(blob);
+  const tmpElement = globalThis.document.createElement("a");
+  tmpElement.href = url;
+  tmpElement.download = name;
+  tmpElement.target = "_blank";
+  tmpElement.setAttribute("style", "display:none");
+  globalThis.document.body.appendChild(tmpElement);
+  tmpElement.click();
+  tmpElement.remove();
+  URL.revokeObjectURL(url);
+}
 
 export default function ControlBar(props: ControlBarProps) {
   const defaultSaveFileName = "ledger.json";
@@ -62,15 +77,34 @@ export default function ControlBar(props: ControlBarProps) {
   };
 
   const handleExportCSV = (): void => {
+    const defaultCSVFileName = "ledger.csv";
     const csvString = QuestsToCSV(ledger.value);
-    const file = new File([csvString], "ledger.csv", { type: "text/csv" });
+    const file = new File([csvString], defaultCSVFileName, { type: "text/csv" });
     downloadFile(file);
   };
 
   const handleExportMarkdownDashboard = (): void => {
+    const defaultDashboardFileName = "dashboard.md";
     const mdString = ConvertLedgerDashboardToMarkdown();
-    const file = new File([mdString], "dashboard.md", { type: "text/markdown" });
+    const file = new File([mdString], defaultDashboardFileName, { type: "text/markdown" });
     downloadFile(file);
+  };
+
+  const handleExportMarkdownArchive = async (): Promise<void> => {
+    const zipFileWriter = new BlobWriter("application/zip");
+    const zipWriter = new ZipWriter(zipFileWriter);
+
+    const indexFileContents = new TextReader(ConvertLedgerDashboardToMarkdown(true));
+    await zipWriter.add("index.md", indexFileContents);
+    await zipWriter.add("quests", undefined, { directory: true });
+    ledger.value.forEach(async q => {
+      const content = new TextReader(`[< Back to Quest Log](../index.md)\n\n${ConvertQuestToMarkdown(q)}`);
+      await zipWriter.add(`quests/${q.id}.md`, content);
+    });
+
+    const zipData = await zipWriter.close();
+
+    downloadBlob(zipData, "ledger.zip");
   };
 
   return (
@@ -119,6 +153,9 @@ export default function ControlBar(props: ControlBarProps) {
               </a>
               <a class="navbar-item" onClick={handleExportMarkdownDashboard}>
                 Export Dashboard to Markdown File...
+              </a>
+              <a class="navbar-item" onClick={handleExportMarkdownArchive}>
+                Export to Markdown Archive...
               </a>
             </div>
           </div>
