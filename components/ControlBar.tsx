@@ -13,6 +13,18 @@ interface ControlBarProps {
   currentQuest: Signal<number>;
 }
 
+const getTodaysDateString = (): string => {
+  const today = new Date();
+  const dd = String(today.getDate()).padStart(2, '0');
+  const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  const yyyy = today.getFullYear();
+
+  const hrs = String(today.getHours()).padStart(2, '0');
+  const min = String(today.getMinutes()).padStart(2, '0');
+  const sec = String(today.getSeconds()).padStart(2, '0');
+  return `${yyyy}-${mm}-${dd}T${hrs}h${min}m${sec}s`;
+};
+
 const handleAddQuest = (props: ControlBarProps): void => {
   props.currentQuest.value = props.addQuest();
 };
@@ -44,7 +56,6 @@ const downloadBlob = (blob: Blob, name: string): void => {
 }
 
 export default function ControlBar(props: ControlBarProps) {
-  const defaultSaveFileName = "ledger.json";
   const fileInputId = "load-file-input";
 
   const handleLoadLedger = (
@@ -69,6 +80,7 @@ export default function ControlBar(props: ControlBarProps) {
   };
 
   const handleSaveLedger = (): void => {
+    const defaultSaveFileName = `ledger_${getTodaysDateString()}.json`;
     const jsonString = JSON.stringify(ledger.value, null, 2);
     const file = new File([jsonString], defaultSaveFileName, {
       type: "application/json",
@@ -77,14 +89,14 @@ export default function ControlBar(props: ControlBarProps) {
   };
 
   const handleExportCSV = (): void => {
-    const defaultCSVFileName = "ledger.csv";
+    const defaultCSVFileName = `ledger_${getTodaysDateString()}.csv`;
     const csvString = QuestsToCSV(ledger.value);
     const file = new File([csvString], defaultCSVFileName, { type: "text/csv" });
     downloadFile(file);
   };
 
   const handleExportMarkdownFile = (): void => {
-    const defaultFileName = "ledger.md";
+    const defaultFileName = `ledger_${getTodaysDateString()}.md`;
     const mdString = ConvertLedgerDashboardToMarkdown(false);
     const file = new File([mdString], defaultFileName, { type: "text/markdown" });
     downloadFile(file);
@@ -104,7 +116,7 @@ export default function ControlBar(props: ControlBarProps) {
 
     const zipData = await zipWriter.close();
 
-    downloadBlob(zipData, "ledger.zip");
+    downloadBlob(zipData, `ledger_${getTodaysDateString()}.zip`);
   };
 
   return (
