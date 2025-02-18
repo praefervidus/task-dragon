@@ -404,29 +404,23 @@ export function QuestPane(props: QuestPaneProps) {
             />
           </div>
         </div>
-        <div class="columns">
-          <div class="column buttons field">
-            <div class="control level-left">
-              <button class="button is-primary" onClick={handleSave}>
-                <span class="icon" title="Save changes...">
-                  {ICONS.save}
-                </span>
-              </button>
-              <button class="button is-warning" onClick={handleDiscard}>
-                <span class="icon" title="Discard changes...">
-                  {ICONS.discard}
-                </span>
-              </button>
-            </div>
-          </div>
-          <div class="column field">
-            <div class="control level-right">
-              <button class="button is-danger" onClick={handleTrash}>
-                <span class="icon" title="Delete...">
-                  {ICONS.trash}
-                </span>
-              </button>
-            </div>
+        <div class="field">
+          <div class="control buttons">
+            <button class="button is-primary" onClick={handleSave}>
+              <span class="icon" title="Save changes...">
+                {ICONS.save}
+              </span>
+            </button>
+            <button class="button is-warning" onClick={handleDiscard}>
+              <span class="icon" title="Discard changes...">
+                {ICONS.discard}
+              </span>
+            </button>
+            <button class="button is-danger" onClick={handleTrash}>
+              <span class="icon" title="Delete...">
+                {ICONS.trash}
+              </span>
+            </button>
           </div>
         </div>
       </div>
