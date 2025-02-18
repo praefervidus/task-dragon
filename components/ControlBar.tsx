@@ -1,5 +1,5 @@
 import { Signal } from "@preact/signals";
-import { ledger } from "../utils/ledger.ts";
+import { ConvertLedgerDashboardToMarkdown, ledger } from "../utils/ledger.ts";
 import { Quest, QuestsToCSV } from "../models/Quest.ts";
 import { JSX } from "preact/jsx-runtime";
 import ICONS from "../utils/icons.ts";
@@ -67,6 +67,12 @@ export default function ControlBar(props: ControlBarProps) {
     downloadFile(file);
   };
 
+  const handleExportMarkdownDashboard = (): void => {
+    const mdString = ConvertLedgerDashboardToMarkdown();
+    const file = new File([mdString], "dashboard.md", { type: "text/markdown" });
+    downloadFile(file);
+  };
+
   return (
     <nav class="navbar is-danger" role="navigation">
       <div class="navbar-brand">
@@ -110,6 +116,9 @@ export default function ControlBar(props: ControlBarProps) {
             <div class="navbar-dropdown">
               <a class="navbar-item" onClick={handleExportCSV}>
                 Export to CSV File...
+              </a>
+              <a class="navbar-item" onClick={handleExportMarkdownDashboard}>
+                Export Dashboard to Markdown File...
               </a>
             </div>
           </div>

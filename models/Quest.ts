@@ -185,3 +185,15 @@ export function QuestsToCSV(qs: Quest[]): string {
   ];
   return csv.stringify(dataWithHeader, { headers: true });
 }
+
+export function ConvertQuestToMarkdown(quest: Quest): string {
+  return (
+    `# [${quest.type.toUpperCase()}] ${quest.name}
+_Priority:_ *${quest.priority.toUpperCase()}* &emsp;&emsp; _Impact:_ *${quest.impact.toUpperCase()}* <br>
+_Status:_ *${quest.status.toUpperCase()} --- ${quest.resolution.toUpperCase()}* <br>
+_Client:_ ${quest.client} &emsp; _Reward:_ ${quest.reward} <br>
+<hr>
+<br>
+${quest.description}`
+  );
+}

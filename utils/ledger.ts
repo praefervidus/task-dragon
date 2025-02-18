@@ -9,6 +9,8 @@ import {
   QuestStatus,
   QuestType,
 } from "../models/Quest.ts";
+import { enumeratePriority } from "../models/Quest.ts";
+import MARKDOWN_ICONS from "./markdown-icons.ts";
 
 export const ledger = signal<Quest[]>([]);
 
@@ -61,4 +63,96 @@ export function getQuestsMeta(status: QuestStatus): QuestMeta[] {
   return ledger.value
     .filter((q) => q.status == status)
     .map((q) => getQuestMeta(q));
+}
+
+const sortQuests = (quests: QuestMeta[]): QuestMeta[] => {
+  const ms = quests.filter((q) => q.type == QuestType.Main).sort((q, r) =>
+    enumeratePriority(q.priority) - enumeratePriority(r.priority)
+  );
+  const ss = quests.filter((q) => q.type == QuestType.Side).sort((q, r) =>
+    enumeratePriority(q.priority) - enumeratePriority(r.priority)
+  );
+  const gs = quests.filter((q) => q.type == QuestType.Gig).sort((q, r) =>
+    enumeratePriority(q.priority) - enumeratePriority(r.priority)
+  );
+  const ls = quests.filter((q) => q.type == QuestType.Lead).sort((q, r) =>
+    enumeratePriority(q.priority) - enumeratePriority(r.priority)
+  );
+  return [...ms, ...ss, ...gs, ...ls];
+};
+
+const getMarkdownIconForPriority = (p: QuestPriority): string => {
+  switch (p) {
+    case QuestPriority.Critical:
+      return MARKDOWN_ICONS.priority.critical;
+    case QuestPriority.High:
+      return MARKDOWN_ICONS.priority.high;
+    case QuestPriority.Medium:
+      return MARKDOWN_ICONS.priority.medium;
+    case QuestPriority.Low:
+      return MARKDOWN_ICONS.priority.low;
+    case QuestPriority.No:
+      return MARKDOWN_ICONS.priority.none;
+  }
+};
+
+const getMarkdownIconForResolution = (r: QuestResolution): string => {
+  switch (r) {
+    case QuestResolution.Unresolved:
+      return MARKDOWN_ICONS.resolution.unresolved;
+    case QuestResolution.Failure:
+      return MARKDOWN_ICONS.resolution.failure;
+    case QuestResolution.Resolved:
+      return MARKDOWN_ICONS.resolution.resolved;
+  }
+};
+
+const getMarkdownIconForImpact = (i: QuestImpact): string => {
+  switch (i) {
+    case QuestImpact.Cosmic:
+      return MARKDOWN_ICONS.impact.cosmic;
+    case QuestImpact.Galactic:
+      return MARKDOWN_ICONS.impact.galactic;
+    case QuestImpact.Stellar:
+      return MARKDOWN_ICONS.impact.stellar;
+    case QuestImpact.Planetary:
+      return MARKDOWN_ICONS.impact.planetary;
+    case QuestImpact.National:
+      return MARKDOWN_ICONS.impact.national;
+    case QuestImpact.Provincial:
+      return MARKDOWN_ICONS.impact.provincial;
+    case QuestImpact.Municipal:
+      return MARKDOWN_ICONS.impact.municipal;
+    case QuestImpact.Local:
+      return MARKDOWN_ICONS.impact.local;
+    case QuestImpact.Familial:
+      return MARKDOWN_ICONS.impact.familial;
+    case QuestImpact.Internal:
+      return MARKDOWN_ICONS.impact.internal;
+  }
+};
+
+const ConvertQuestMetaToMarkdown = (quest: QuestMeta): string => {
+  return `- ${
+    getMarkdownIconForResolution(quest.resolution)
+  } [${quest.type.toUpperCase()}] ${
+    getMarkdownIconForPriority(quest.priority)
+  } ${getMarkdownIconForImpact(quest.impact)} -- ${quest.name}`;
+};
+
+const ConvertQuestListToMarkdown = (quests: QuestMeta[]): string => {
+  return quests.map((q) => ConvertQuestMetaToMarkdown(q)).join("\n");
+};
+
+export function ConvertLedgerDashboardToMarkdown(): string {
+  return (
+    `# Quest Log
+## Active
+${ConvertQuestListToMarkdown(sortQuests(getQuestsMeta(QuestStatus.Active)))}
+## To Do
+${ConvertQuestListToMarkdown(sortQuests(getQuestsMeta(QuestStatus.ToDo)))}
+## Closed
+${ConvertQuestListToMarkdown(sortQuests(getQuestsMeta(QuestStatus.Closed)))}
+  `
+  );
 }
