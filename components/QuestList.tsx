@@ -29,11 +29,11 @@ export default function QuestList(props: QuestListProps) {
               {getIconForQuestResolution(q.resolution)}
             </span>
             &ensp;
-            <span title={q.priority}>
+            <span title={`Priority: ${q.priority}`}>
               {getIconForQuestPriority(q.priority)}
             </span>
             &ensp;
-            <span title={q.impact}>
+            <span title={`Impact: ${q.impact}`}>
               {getIconForQuestImpact(q.impact)}
             </span>
             &emsp;
